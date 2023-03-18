@@ -17,7 +17,7 @@ class Solution{
     int left=2*i + 1;
     int right = 2*i+ 2;
 
-    if(left<n && arr[largest] < arr[left]){
+    if(left <n && arr[largest] < arr[left]){
         largest = left;
     }
     if(right < n && arr[largest] < arr[right]){
@@ -40,7 +40,7 @@ class Solution{
         }
         
         int x=arr.size();
-        for(int i=(x/2)-1;i>=0;i--){
+        for(int i=x-1;i>=0;i--){
            heapify(arr , x ,i);
         }
         
