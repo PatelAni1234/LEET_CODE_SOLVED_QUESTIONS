@@ -20,13 +20,11 @@ class Solution {
     vector<int> dfsOfGraph(int V, vector<int> adj[]) {
         vector<int> vis(V ,0);
         vector<int> ans;
-        for(int i=0;i<V;i++){
-            if(!vis[i]){
+        
                 
-               dfs(i,vis ,ans  ,adj);
+               dfs(0,vis ,ans  ,adj);
                
-            }
-        }
+            
         
         return ans;
         
