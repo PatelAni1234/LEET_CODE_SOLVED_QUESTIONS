@@ -6,7 +6,7 @@ using namespace std;
 class Solution
 {
 	public:
-	void solve(int node  ,vector<int> &vis ,vector<int> adj[] , stack<int> &s){
+	/*oid solve(int node  ,vector<int> &vis ,vector<int> adj[] , stack<int> &s){
 	     vis[node]=1;
 	     
 	     
@@ -17,9 +17,10 @@ class Solution
 	     }
 	     s.push(node);
 	}
+	*/
 	vector<int> topoSort(int V, vector<int> adj[]) 
 	{
-	    vector<int> vis(V ,0);
+	    /*vector<int> vis(V ,0);
 	    stack<int> s;
 	    for(int i=0;i<V;i++){
 	        if(!vis[i]){
@@ -31,10 +32,49 @@ class Solution
 	    vector<int> ans;
 	    while(!s.empty()){
 	        ans.push_back(s.top());
-	        s.pop();
+	        s.pop();           ---->>using dfs
 	    }
 	    
-	    return ans;
+	    return ans;*/
+	    
+	    
+	    
+	    queue<int> q;
+	    vector<int> ans;
+	    vector<int> indegree(V ,0);
+	    
+	    for(int i=0;i<V;i++){
+	        for(auto j : adj[i]){
+	            indegree[j]++ ;
+	        }
+	    }
+	    
+	    
+	   
+	     for(int i=0;i<V;i++){
+	        if(indegree[i]==0){
+	            q.push(i);
+	        }
+	    }
+	    
+	    while(!q.empty()){
+	        int node = q.front();
+	        q.pop();
+	        
+	        ans.push_back(node);
+	        
+	        
+	        for(auto i:adj[node]){
+	            indegree[i]--;
+	            if(indegree[i]==0){
+	                q.push(i);
+	            }
+	        }
+	       
+	        
+	        
+	    }
+	     return ans;
 	}
 };
 
