@@ -7,10 +7,10 @@ class Solution {
   public:
   
     // Function to detect cycle in an undirected graph.
-    bool solve(int i ,vector<int> adj[]  , vector<int> &vis){
+   /* bool solve(int i ,vector<int> adj[]  , vector<int> &vis){
         map<int ,int> parent;
-        
-        queue<int> q;
+       
+        queue<int> q;    ------->>>>> //using bfs
         q.push(i);
         vis[i]=1;
         parent[i]=-1;
@@ -36,11 +36,36 @@ class Solution {
         }
         return false;
     }
+    */
+    
+      bool dfs( int node ,int parent  ,vector<int> &vis , vector<int> adj[]  ){
+        
+       
+         
+        
+      
+        
+        vis[node] = 1;
+      
+      for(auto i:adj[node]){
+          
+          if(!vis[i]){
+              
+              if(dfs(i ,node   ,vis ,adj)){
+                  return true;
+              }
+          }
+          else if( parent != i ){
+              return true;
+          }
+      }
+      return false;
+  }
     bool isCycle(int V, vector<int> adj[]) {
         vector<int> vis(V ,0);
         
         
-       for(int i=0;i<V;i++){
+      /* for(int i=0;i<V;i++){
            if(vis[i]==0){
                bool ans = solve(i ,adj  ,vis);
                
@@ -48,7 +73,26 @@ class Solution {
                 return true; 
             }
         }
-       return false;
+        return false;
+        */
+        
+        unordered_map<int ,int> parent;
+        
+       
+        for(int i=0;i<V;i++){
+           if(vis[i]==0){
+               bool ans = dfs(i ,-1 , vis   ,adj );
+               
+              if( ans == 1 )
+                return true; 
+            }
+        }
+        return false;
+        
+       
+       
+       
+       
         
     }
 };
