@@ -5,37 +5,37 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    // Function to detect cycle in an undirected graph.
-    bool isCycle(int V, vector<int> adj[]) {
-        unordered_map<int , int> mp;
-        vector<int> vis(V , 0);
-        queue<int> q;
-       
-        
-        for(int k = 0;k<V;k++){
-            if(!vis[k]){
-                 q.push(k);
-                 vis[k] = 1;
-                 mp[k] = -1;
-              while(!q.empty()){
-                int value = q.front();
-                q.pop();
-            
-               for(auto i : adj[value]){
-                    if(vis[i] && mp[value]!= i){
-                        return true;
-                    }
-                    else if(!vis[i]){
-                        mp[i] = value;
-                        vis[i] = 1;
-                        q.push(i);
-                    }
+   bool dfs(vector<int> &vis, vector<int> adj[], int node, unordered_map<int, int> &mp) {
+    vis[node] = 1;
+
+    for (auto i : adj[node]) {
+        if (vis[i] && mp[node] != i) {
+            return true;
+        } else if (!vis[i]) {
+            if (mp.find(i) == mp.end()) {
+                mp[i] = node;
+                if (dfs(vis, adj, i, mp)) {
+                    return true;
                 }
-              }
-        
             }
         }
-        return false;
+    }
+
+    return false;
+}
+
+    bool isCycle(int V, vector<int> adj[]) {
+       vector<int> vis(V ,0);
+       unordered_map<int , int> mp;
+       for(int i = 0;i<V;i++){
+           if(!vis[i]){
+               mp[i] = -1;
+               if(dfs(vis , adj ,i , mp)){
+                  return true;
+                }
+            }
+        }
+       return false;
     }
 };
 
