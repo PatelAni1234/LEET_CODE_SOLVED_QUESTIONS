@@ -12,12 +12,12 @@ class Solution {
         if (vis[i] && mp[node] != i) {
             return true;
         } else if (!vis[i]) {
-            if (mp.find(i) == mp.end()) {
+            
                 mp[i] = node;
                 if (dfs(vis, adj, i, mp)) {
                     return true;
                 }
-            }
+            
         }
     }
 
